@@ -59,7 +59,7 @@ public class BookRepositoryTest {
             count.incrementAndGet();
         });
 
-        assertThat(count.get()).isGreaterThan(5);
+        assertThat(count.get()).isGreaterThanOrEqualTo(5);
     }
 
     @Test
