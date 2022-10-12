@@ -1,5 +1,6 @@
 package guru.springframework.jdbc.dao;
 
+import com.google.common.collect.Ordering;
 import guru.springframework.jdbc.domain.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,15 +10,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -41,7 +43,9 @@ class BookDaoJDBCTemplateTest {
                 Sort.by(Sort.Order.desc("title"))));
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
+        //assertThat(books.size()).isEqualTo(10);
+        List<String> booksTitle = books.stream().map(Book::getTitle).collect(Collectors.toList());
+        assertTrue(Ordering.natural().reverse().isOrdered(booksTitle));
     }
 
     @Test
