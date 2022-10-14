@@ -33,7 +33,7 @@ class BookDaoImplTest {
                 Sort.by(Sort.Order.desc("title"))));
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
+        assertThat(books.size()).isEqualTo(5);
     }
 
     @Test
@@ -41,15 +41,15 @@ class BookDaoImplTest {
         List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
+        assertThat(books.size()).isEqualTo(5);
     }
 
     @Test
     void findAllBooksPage2_pageable() {
-        List<Book> books = bookDao.findAllBooks(PageRequest.of(1, 10));
+        List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
+        assertThat(books.size()).isEqualTo(5);
     }
 
     @Test
@@ -65,15 +65,15 @@ class BookDaoImplTest {
         List<Book> books = bookDao.findAllBooks(10, 0);
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
+        assertThat(books.size()).isEqualTo(5);
     }
 
     @Test
     void findAllBooksPage2() {
-        List<Book> books = bookDao.findAllBooks(10, 10);
+        List<Book> books = bookDao.findAllBooks(1, 10);
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isEqualTo(10);
+        assertThat(books.size()).isEqualTo(0);
     }
 
     @Test
@@ -89,7 +89,7 @@ class BookDaoImplTest {
         List<Book> books = bookDao.findAllBooks();
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isGreaterThan(5);
+        assertThat(books.size()).isGreaterThanOrEqualTo(5);
     }
 
     @Test
